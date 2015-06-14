@@ -1,0 +1,29 @@
+---
+layout: list
+title: Блог
+meta: Блог NextClick
+keywords: NextClick, content marketing, глибина переглядів, блог
+permalink: /blog/
+---
+
+<h1>{{page.title}}</h1>
+
+<div class="list">
+	<div class="isotope-container">
+		{% for blog in site.categories.blog %}
+			<article class="isotope-item">
+				<a href="{{site.baseurl}}{{blog.url}}">
+
+					<img src="{{site.baseurl}}/assets/img/blog/{{blog.url-id}}-og.jpg" alt="{{blog.title}}">
+
+					<div class="overlay"></div>
+
+					<div class="vertical-centring">
+						<h4>{{blog.title}}</h4>
+					</div>
+
+				</a>
+			</article>
+		{% endfor %}
+	</div>
+</div>

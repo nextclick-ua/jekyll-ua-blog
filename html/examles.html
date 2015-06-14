@@ -1,0 +1,29 @@
+---
+layout: list
+title: Приклади віджетів
+meta: Приклади віджетів NextClick
+keywords: NextClick, content marketing, глибина переглядів, приклади віджетів
+permalink: /examples/
+---
+
+<h1>{{page.title}}</h1>
+
+<div class="list">
+	<div class="isotope-container">
+		{% for examples in site.categories.examples %}
+			<article class="isotope-item">
+				<a href="{{site.baseurl}}{{examples.url}}">
+
+					<img src="{{site.baseurl}}/assets/img/examples/{{examples.url-id}}-og.jpg" alt="{{examples.title}}">
+
+					<div class="overlay"></div>
+
+					<div class="vertical-centring">
+						<h4>{{examples.title}}</h4>
+					</div>
+
+				</a>
+			</article>
+		{% endfor %}
+	</div>
+</div>
