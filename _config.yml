@@ -1,5 +1,5 @@
 # Build settings
-baseurl: /jekyll-ua-blog
+baseurl: 
 markdown: kramdown
 permalink: /:categories/:title
 
