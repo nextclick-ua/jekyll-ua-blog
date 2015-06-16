@@ -1,3 +1,12 @@
 footer.footer {
 	background: $footer-bg-color;
+	font-size: 12px;
+	color: #bbb;
+
+	a {
+		color: #13bcc6;
+		&:hover {
+			color: #0c7a80;
+		}
+	}
 }
