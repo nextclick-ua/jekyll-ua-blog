@@ -1,0 +1,42 @@
+
+
+.showCaption .ncwCaption {
+  line-height: 14px !important;
+  color: #b8151c !important;
+  font-family: Proxima Nova Cyrillic Bold,sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+}
+
+.ncwCaption, .ncwCaption .ncwPages, .ncwCaption .ncwPages .ncwCurrentPage {
+  background-color: transparent !important;
+}
+
+.ncwCaption {
+	text-shadow: none !important;
+	padding: 0 !important;
+	height: none;
+}
+
+.ncWidget.showImages.showCaption.textUnderImages.hideDescriptions {
+  margin-top: 20px !important;
+  padding-top: 10px !important;
+  border-top: 2px solid #000;
+}
+
+.showImages .ncwArticle img {
+  display: block!important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.ncwTitle {
+  color: #232323 !important;
+  font: 400 13px/18px Proxima Nova Cyrillic Regular,sans-serif !important;
+}
+
+
+.ncwArticle:hover .ncwTitle {
+  color: #BF2E35 !important;
+  text-decoration: none !important;
+}
