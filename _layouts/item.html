@@ -13,7 +13,7 @@ layout: default
 		var customRenderFunction = function (widget, video) {
 			var 
 				itemsCount = widget.widget.items_count,
-				items = __nc_j.extend(true, {}, widget.data.items),
+				items = __nc_j.extend(true, [], widget.data.items),
 				$container = __nc_j('<div id="widget_container" style="position: absolute; width:100%; background-color: rgba(255, 255, 255, 0.9);">');
 
 			//add advertisement to items
@@ -81,7 +81,7 @@ layout: default
 					//recommendations can be accessed by
 					console.log(widget.data.items);
 					//advertisements can be accessed by
-					console.log(widget.data.adverisements);
+					console.log(widget.data.advertisements);
 
 					//custom render function
 					customRenderFunction(widget, $video);
