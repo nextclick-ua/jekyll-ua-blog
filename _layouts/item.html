@@ -8,18 +8,98 @@ layout: default
 
 	{{content}}
 
-	<script type="text/javascript" data-key="DA61-15E7-71E0-0FB0-1Z5sFS">
-	  var __nc_widgets = __nc_widgets || [];
-	  var __nc_j = __nc_j || null;
+	<script type="text/javascript">
+		//function to render recommendation - can be defined in separate file
+		var customRenderFunction = function (widget, video) {
+			var 
+				itemsCount = widget.widget.items_count,
+				items = __nc_j.extend(true, {}, widget.data.items),
+				$container = __nc_j('<div id="widget_container" style="position: absolute; width:100%; background-color: rgba(255, 255, 255, 0.9);">');
 
-	  __nc_widgets.push(['DA61-15E7-71E0-0FB0-1Z5sFS', 'nextclickblog.github.io', 'recommendation', 1, 1, 0, 'ua']);
+			//add advertisement to items
+			if (widget.data.advertisements && widget.data.advertisements.length) {
+				var advertisementPosition = Math.floor(Math.random() * (itemsCount - 1)) + 1;
 
-	  (function() {
-	    var __nc = document.createElement('script'); __nc.type = 'text/javascript'; __nc.async = true; __nc.id = 'Nextclick_Manager';
-	    __nc.src = 'http://nextclick.com.ua/widget/widget.recommendation.1.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(__nc, s);
-	  })();
+				items.splice(advertisementPosition, 0 , widget.data.advertisements[0]);
+			}
+
+			//render items
+			for (var i = 0; i < itemsCount; i++) {
+				var 
+					item = items[i],
+					type = (item.type && item.label) ? 'advertisement' : 'item';
+
+				//IMPORTANT: 
+				//item anchor must have "<item.id>" class!
+				$item = __nc_j('<div class="' + type + '" style="height:99px">').append(
+					'<a class="' + item.id + '" href="' + item.url + '">' +
+						'<img style="width: 170px" src="' + item.image + '"/>' + 
+						'<div style="display: inline-block">' +
+							//label exists only in advertisements
+							(type == 'advertisement' ? ('<span>' + item.label + '</span><br>') : '') + 
+							'<span>' + item.title + '</span><br>' +
+							'<span>' + item.description + '</span>' + 
+						'</div>' +
+					'</a>'
+				);
+
+				$container.append($item)
+			};
+
+			//IMPORTANT: 
+			//this jQuery selector must be overwriten - must point to items anchor (but not to advertisement!)
+			widget.redirectItemSelector = "#widget_container .item a";
+
+			$video.parent().css('position', 'relative');
+			$video.css('position', 'absolute');
+			$container.insertAfter(video);
+		}
 	</script>
 
-</article>
+	<script type="text/javascript" data-key="DA61-15E7-71E0-0FB0-1Z5sFS">
+		var __nc_widgets = __nc_widgets || [];
+		var __nc_j = __nc_j || null;
 
+		//variables defined to describe video
+		var __nc_page_url = '{{ page.url }}';
+		var __nc_page_image_url = '{{ site.url }}/assets/img/{{ page.category }}/{{ page.url-id }}.png';
+		var __nc_page_title = '{{ page.title }}';
+		var __nc_page_description = '{{ page.content | strip_html  | strip_newlines | strip | truncate: 250 }}';
+		var __nc_page_created_at = '{{ page.date }}';
+
+		//overwriten default event (in this case only NC_readyToRender)
+		var __nc_event_handlers = {
+		    NC_readyToRender: function(event, key){
+		    	var 
+					eventArguments = arguments,
+					widget = NextclickWidgetManager.widgets[key]
+		    		$video = __nc_j('.item video'),
+		    		video = $video.get(0);
+
+				//video end event
+				video.onended = function() {
+					//recommendations can be accessed by
+					console.log(widget.data.items);
+					//advertisements can be accessed by
+					console.log(widget.data.adverisements);
+
+					//custom render function
+					customRenderFunction(widget, $video);
+
+					//IMPORTANT:
+					//always after render NC_renderDone must be triggered 
+					//this is very important because that event binds statistics logic
+					__nc_j('body').trigger('NC_renderDone', [key]);
+				};
+		    }
+		}
+
+        __nc_widgets.push(['DA61-15E7-71E0-0FB0-1Z5sFS', 'nextclickblog.github.io', 'recommendation', 1, 1, 0, 'ua']);
+ 
+        (function() {
+          var __nc = document.createElement('script'); __nc.type = 'text/javascript'; __nc.async = true; __nc.id = 'Nextclick_Manager';
+          __nc.src = 'http://nextclick.com.ua/widget/widget.recommendation.1.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(__nc, s);
+        })();
+	</script>
+</article>

@@ -3,6 +3,7 @@ baseurl:
 markdown: kramdown
 permalink: /:categories/:title
 
+url: http://localhost:4444
 port: 4444
 
 exclude: ['README.md']
